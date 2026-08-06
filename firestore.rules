@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Koleksi "items" menyimpan seluruh katalog Components Library
+    // (pergola, backdrop, tree, stage, chair, table, walkway, photobooth).
+    match /items/{itemId} {
+      allow read: if true;   // katalog boleh dilihat siapa saja (publik)
+      allow write: if true;  // upload/ubah/hapus — dijaga oleh PIN di sisi tampilan,
+                              // bukan autentikasi sungguhan. Cukup untuk penggunaan
+                              // pribadi/demo. Untuk keamanan lebih ketat, tambahkan
+                              // Firebase Authentication lalu ganti baris ini menjadi:
+                              // allow write: if request.auth != null;
+    }
+  }
+}
