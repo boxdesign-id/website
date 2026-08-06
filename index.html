@@ -132,8 +132,14 @@ nav.main-links a:hover::after{width:100%;}
     radial-gradient(ellipse 68% 52% at 50% 6%, rgba(169,130,47,0.11), transparent 62%),
     var(--bg);
 }
+.hero-blueprint{
+  position:absolute; inset:0; width:100%; height:100%; z-index:0;
+  opacity:0.16; pointer-events:none;
+  mask-image: radial-gradient(ellipse 75% 80% at 50% 40%, black 45%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 80% at 50% 40%, black 45%, transparent 92%);
+}
 .hero-emblem{
-  width:64px; height:64px; border-radius:50%; margin:0 auto 36px; position:relative;
+  width:64px; height:64px; border-radius:50%; margin:0 auto 36px; position:relative; z-index:1;
   border:1px solid var(--gold-dim); display:flex; align-items:center; justify-content:center;
   opacity:0; animation:fadeUp 1s ease forwards .15s;
 }
@@ -170,9 +176,11 @@ nav.main-links a:hover::after{width:100%;}
 /* ============ SECTION GENERIC ============ */
 section{position:relative; z-index:1;}
 .section{padding:120px 0;}
-.section-head{text-align:center; max-width:640px; margin:0 auto 70px;}
-.section-head h2{font-size:clamp(2rem,4vw,2.9rem); margin-top:18px;}
+.section-head{text-align:center; max-width:760px; margin:0 auto 70px;}
+.section-head h2{font-size:clamp(1.9rem,3.6vw,2.7rem); margin-top:18px; line-height:1.28;}
 .section-head p{color:var(--ivory-dim); margin-top:18px; font-size:1rem;}
+.nowrap-lg{white-space:nowrap;}
+@media(max-width:640px){.nowrap-lg{white-space:normal;}}
 @media(max-width:640px){.section{padding:80px 0;}}
 
 /* services */
@@ -200,14 +208,13 @@ section{position:relative; z-index:1;}
 .portfolio-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
 .portfolio-grid a.pf-item{grid-column:span 1;}
 .portfolio-grid .pf-item:nth-child(1){grid-column:span 2; grid-row:span 2;}
-.pf-item{position:relative; aspect-ratio:1/1; overflow:hidden; border:1px solid var(--line-soft); display:block;}
+.pf-item{position:relative; aspect-ratio:1/1; overflow:hidden; border:1px solid var(--line-soft); display:block; box-shadow:var(--shadow-sm);}
 .portfolio-grid .pf-item:nth-child(1){aspect-ratio:auto;}
-.pf-item .ph{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
-.pf-item .label{position:absolute; left:16px; bottom:14px; z-index:2; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ivory); background:rgba(10,10,10,0.55); padding:6px 12px; border:1px solid rgba(217,189,117,0.4); backdrop-filter:blur(4px);}
-.pf-item::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.6) 100%); opacity:0; transition:opacity .3s ease;}
-.pf-item:hover::after{opacity:1;}
-.pf-item:hover .ph{transform:scale(1.05);}
-.pf-item .ph{transition:transform .5s ease;}
+.pf-item .ph{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition:transform .5s ease;}
+.pf-item::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 48%, rgba(18,13,7,0.8) 100%); z-index:1; pointer-events:none;}
+.pf-item .label{position:absolute; left:20px; right:20px; bottom:18px; z-index:2; font-family:var(--serif-sc); font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:#fbf6e9; text-shadow:0 1px 6px rgba(0,0,0,0.35);}
+.pf-item:hover{border-color:var(--gold-dim);}
+.pf-item:hover .ph{transform:scale(1.06);}
 @media(max-width:860px){.portfolio-grid{grid-template-columns:repeat(2,1fr);} .portfolio-grid .pf-item:nth-child(1){grid-column:span 2; grid-row:span 1; aspect-ratio:2/1;}}
 
 /* testimonials */
@@ -398,6 +405,42 @@ body.admin-on .add-tile{display:flex;}
 <main id="page-home">
 
   <section class="hero">
+    <svg class="hero-blueprint" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="var(--gold)" stroke-width="1.1" vector-effect="non-scaling-stroke">
+        <rect x="60" y="40" width="1080" height="620" rx="4" />
+        <path d="M470 108 A150 150 0 0 1 730 108" />
+        <rect x="565" y="150" width="70" height="18" />
+        <path d="M540 108 L540 60 M660 108 L660 60" stroke-dasharray="2 6"/>
+        <path d="M565 168 L565 610" stroke-dasharray="3 7"/>
+        <path d="M635 168 L635 610" stroke-dasharray="3 7"/>
+        <g>
+          <rect x="300" y="200" width="12" height="10" rx="1.5"/><rect x="334" y="200" width="12" height="10" rx="1.5"/><rect x="368" y="200" width="12" height="10" rx="1.5"/><rect x="402" y="200" width="12" height="10" rx="1.5"/><rect x="436" y="200" width="12" height="10" rx="1.5"/>
+          <rect x="300" y="234" width="12" height="10" rx="1.5"/><rect x="334" y="234" width="12" height="10" rx="1.5"/><rect x="368" y="234" width="12" height="10" rx="1.5"/><rect x="402" y="234" width="12" height="10" rx="1.5"/><rect x="436" y="234" width="12" height="10" rx="1.5"/>
+          <rect x="300" y="268" width="12" height="10" rx="1.5"/><rect x="334" y="268" width="12" height="10" rx="1.5"/><rect x="368" y="268" width="12" height="10" rx="1.5"/><rect x="402" y="268" width="12" height="10" rx="1.5"/><rect x="436" y="268" width="12" height="10" rx="1.5"/>
+          <rect x="300" y="302" width="12" height="10" rx="1.5"/><rect x="334" y="302" width="12" height="10" rx="1.5"/><rect x="368" y="302" width="12" height="10" rx="1.5"/><rect x="402" y="302" width="12" height="10" rx="1.5"/><rect x="436" y="302" width="12" height="10" rx="1.5"/>
+          <rect x="300" y="336" width="12" height="10" rx="1.5"/><rect x="334" y="336" width="12" height="10" rx="1.5"/><rect x="368" y="336" width="12" height="10" rx="1.5"/><rect x="402" y="336" width="12" height="10" rx="1.5"/><rect x="436" y="336" width="12" height="10" rx="1.5"/>
+          <rect x="300" y="370" width="12" height="10" rx="1.5"/><rect x="334" y="370" width="12" height="10" rx="1.5"/><rect x="368" y="370" width="12" height="10" rx="1.5"/><rect x="402" y="370" width="12" height="10" rx="1.5"/><rect x="436" y="370" width="12" height="10" rx="1.5"/>
+          <rect x="300" y="404" width="12" height="10" rx="1.5"/><rect x="334" y="404" width="12" height="10" rx="1.5"/><rect x="368" y="404" width="12" height="10" rx="1.5"/><rect x="402" y="404" width="12" height="10" rx="1.5"/><rect x="436" y="404" width="12" height="10" rx="1.5"/>
+        </g>
+        <g>
+          <rect x="790" y="200" width="12" height="10" rx="1.5"/><rect x="824" y="200" width="12" height="10" rx="1.5"/><rect x="858" y="200" width="12" height="10" rx="1.5"/><rect x="892" y="200" width="12" height="10" rx="1.5"/><rect x="926" y="200" width="12" height="10" rx="1.5"/>
+          <rect x="790" y="234" width="12" height="10" rx="1.5"/><rect x="824" y="234" width="12" height="10" rx="1.5"/><rect x="858" y="234" width="12" height="10" rx="1.5"/><rect x="892" y="234" width="12" height="10" rx="1.5"/><rect x="926" y="234" width="12" height="10" rx="1.5"/>
+          <rect x="790" y="268" width="12" height="10" rx="1.5"/><rect x="824" y="268" width="12" height="10" rx="1.5"/><rect x="858" y="268" width="12" height="10" rx="1.5"/><rect x="892" y="268" width="12" height="10" rx="1.5"/><rect x="926" y="268" width="12" height="10" rx="1.5"/>
+          <rect x="790" y="302" width="12" height="10" rx="1.5"/><rect x="824" y="302" width="12" height="10" rx="1.5"/><rect x="858" y="302" width="12" height="10" rx="1.5"/><rect x="892" y="302" width="12" height="10" rx="1.5"/><rect x="926" y="302" width="12" height="10" rx="1.5"/>
+          <rect x="790" y="336" width="12" height="10" rx="1.5"/><rect x="824" y="336" width="12" height="10" rx="1.5"/><rect x="858" y="336" width="12" height="10" rx="1.5"/><rect x="892" y="336" width="12" height="10" rx="1.5"/><rect x="926" y="336" width="12" height="10" rx="1.5"/>
+          <rect x="790" y="370" width="12" height="10" rx="1.5"/><rect x="824" y="370" width="12" height="10" rx="1.5"/><rect x="858" y="370" width="12" height="10" rx="1.5"/><rect x="892" y="370" width="12" height="10" rx="1.5"/><rect x="926" y="370" width="12" height="10" rx="1.5"/>
+          <rect x="790" y="404" width="12" height="10" rx="1.5"/><rect x="824" y="404" width="12" height="10" rx="1.5"/><rect x="858" y="404" width="12" height="10" rx="1.5"/><rect x="892" y="404" width="12" height="10" rx="1.5"/><rect x="926" y="404" width="12" height="10" rx="1.5"/>
+        </g>
+        <g>
+          <circle cx="180" cy="580" r="34" /><circle cx="232.0" cy="580.0" r="3.4" /><circle cx="216.8" cy="616.8" r="3.4" /><circle cx="180.0" cy="632.0" r="3.4" /><circle cx="143.2" cy="616.8" r="3.4" /><circle cx="128.0" cy="580.0" r="3.4" /><circle cx="143.2" cy="543.2" r="3.4" /><circle cx="180.0" cy="528.0" r="3.4" /><circle cx="216.8" cy="543.2" r="3.4" />
+          <circle cx="1020" cy="580" r="34" /><circle cx="1072.0" cy="580.0" r="3.4" /><circle cx="1056.8" cy="616.8" r="3.4" /><circle cx="1020.0" cy="632.0" r="3.4" /><circle cx="983.2" cy="616.8" r="3.4" /><circle cx="968.0" cy="580.0" r="3.4" /><circle cx="983.2" cy="543.2" r="3.4" /><circle cx="1020.0" cy="528.0" r="3.4" /><circle cx="1056.8" cy="543.2" r="3.4" />
+          <circle cx="180" cy="470" r="34" /><circle cx="232.0" cy="470.0" r="3.4" /><circle cx="216.8" cy="506.8" r="3.4" /><circle cx="180.0" cy="522.0" r="3.4" /><circle cx="143.2" cy="506.8" r="3.4" /><circle cx="128.0" cy="470.0" r="3.4" /><circle cx="143.2" cy="433.2" r="3.4" /><circle cx="180.0" cy="418.0" r="3.4" /><circle cx="216.8" cy="433.2" r="3.4" />
+          <circle cx="1020" cy="470" r="34" /><circle cx="1072.0" cy="470.0" r="3.4" /><circle cx="1056.8" cy="506.8" r="3.4" /><circle cx="1020.0" cy="522.0" r="3.4" /><circle cx="983.2" cy="506.8" r="3.4" /><circle cx="968.0" cy="470.0" r="3.4" /><circle cx="983.2" cy="433.2" r="3.4" /><circle cx="1020.0" cy="418.0" r="3.4" /><circle cx="1056.8" cy="433.2" r="3.4" />
+        </g>
+        <path d="M100 690 L1160 690" stroke-dasharray="1 5"/>
+        <path d="M100 684 L100 696"/><path d="M380 684 L380 696"/><path d="M630 684 L630 696"/><path d="M880 684 L880 696"/><path d="M1160 684 L1160 696"/>
+      </g>
+    </svg>
     <div class="hero-emblem"><span>BD</span></div>
     <div class="hero-content">
       <div class="eyebrow center" style="justify-content:center; margin:0 auto 30px; width:fit-content;">Wedding Design Studio — 2D · 3D · Animasi</div>
@@ -424,7 +467,7 @@ body.admin-on .add-tile{display:flex;}
     <div class="container">
       <div class="section-head">
         <div class="eyebrow center" style="justify-content:center; width:fit-content; margin:0 auto;">Layanan</div>
-        <h2>Tiga Cara Melihat Pernikahan Anda,<br>Sebelum Terwujud</h2>
+        <h2><span class="nowrap-lg">Tiga Cara Melihat Pernikahan Anda,</span><br>Sebelum Terwujud</h2>
         <p>Dari sketsa awal hingga simulasi bergerak — pilih tingkat visualisasi yang Anda butuhkan untuk mengambil keputusan dengan yakin.</p>
       </div>
       <div class="services-grid">
