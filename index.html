@@ -8,30 +8,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============ TOKENS — Onyx & Antique Bronze-Gold ============ */
+/* ============ TOKENS — Royal Burgundy & Gold (dari Company Profile) ============ */
 :root{
-  --bg: #0a0908;
-  --bg-warm: #13100a;
-  --surface: #17130d;
-  --surface-2: #1c170f;
-  --line: #3a2f1e;
-  --line-soft: #241d12;
-  --gold: #b5872f;
-  --gold-deep: #8f6a22;
-  --gold-bright: #e3c077;
-  --gold-dim: #5c4526;
-  --ivory: #f2ead9;
-  --ivory-dim: #b0a488;
-  --ivory-faint: #766b52;
+  --bg: #1a0a0d;
+  --bg-warm: #240e12;
+  --surface: #2c1116;
+  --surface-2: #35151a;
+  --line: #532027;
+  --line-soft: #341419;
+  --gold: #ffb137;
+  --gold-deep: #d9922c;
+  --gold-bright: #ffc866;
+  --gold-dim: #6b4322;
+  --maroon: #c02123;
+  --burgundy: #821b2b;
+  --ivory: #f5eee7;
+  --ivory-dim: #c7b3ab;
+  --ivory-faint: #8a716b;
   --success: #8fae8a;
-  --danger: #c67a5f;
+  --danger: #e0574f;
   --radius: 2px;
   --serif: 'Playfair Display', 'Times New Roman', serif;
   --serif-sc: 'Cormorant SC', var(--serif);
   --sans: 'Jost', 'Helvetica Neue', Arial, sans-serif;
-  --shadow-sm: 0 2px 16px rgba(0,0,0,0.35);
-  --shadow-md: 0 12px 36px rgba(0,0,0,0.45);
-  --shadow-lg: 0 26px 70px rgba(0,0,0,0.6);
+  --shadow-sm: 0 2px 16px rgba(0,0,0,0.4);
+  --shadow-md: 0 12px 36px rgba(0,0,0,0.5);
+  --shadow-lg: 0 26px 70px rgba(0,0,0,0.65);
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 html{scroll-behavior:smooth;}
@@ -47,7 +49,7 @@ body{
 body::before{
   content:"";
   position:fixed; inset:0;
-  background-image: radial-gradient(circle at 1px 1px, rgba(181,135,47,0.09) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,177,55,0.09) 1px, transparent 0);
   background-size: 26px 26px;
   pointer-events:none;
   z-index:0;
@@ -112,7 +114,7 @@ nav.main-links a:hover::after{width:100%;}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep)); color:#fffaf0; border:1px solid var(--gold-deep); font-weight:500; box-shadow:var(--shadow-sm);}
 .btn-gold:hover{filter:brightness(1.08); color:#fffaf0; box-shadow:var(--shadow-md);}
 .btn-outline-gold{border:1px solid var(--gold); color:var(--gold-bright);}
-.btn-outline-gold:hover{background:rgba(181,135,47,0.13); border-color:var(--gold-bright);}
+.btn-outline-gold:hover{background:rgba(255,177,55,0.13); border-color:var(--gold-bright);}
 .btn-ghost{border:1px solid transparent; color:var(--ivory-dim);}
 .btn-sm{padding:8px 14px; font-size:0.7rem;}
 .menu-toggle{display:none; background:none; border:none; color:var(--ivory);}
@@ -134,25 +136,25 @@ nav.main-links a:hover::after{width:100%;}
 .hero-photo{position:absolute; inset:0; z-index:0; overflow:hidden;}
 .hero-photo img{
   width:100%; height:100%; object-fit:cover; object-position:center 68%;
-  filter:saturate(0.5) brightness(0.62) contrast(1.05) sepia(0.1);
+  filter:saturate(0.75) brightness(0.88) contrast(1.05);
   transform:scale(1.03);
 }
 .hero-photo::after{
   content:""; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse 65% 58% at 50% 32%, rgba(10,9,8,0.58), rgba(10,9,8,0.90) 78%),
-    linear-gradient(180deg, rgba(10,9,8,0.72) 0%, rgba(10,9,8,0.5) 30%, rgba(10,9,8,0.65) 60%, rgba(10,9,8,0.96) 100%);
+    radial-gradient(ellipse 58% 50% at 50% 32%, rgba(26,10,13,0.5), rgba(26,10,13,0.1) 72%),
+    linear-gradient(180deg, rgba(26,10,13,0.45) 0%, rgba(26,10,13,0.1) 28%, rgba(26,10,13,0.18) 55%, rgba(26,10,13,0.7) 100%);
 }
 .hero-content{position:relative; z-index:1; max-width:760px; margin:0 auto;}
-.hero-content .eyebrow{margin-bottom:30px; opacity:0; animation:fadeUp 1s ease forwards .15s;}
+.hero-content .eyebrow{margin-bottom:30px; opacity:0; animation:fadeUp 1s ease forwards .15s; text-shadow:0 1px 6px rgba(0,0,0,0.85);}
 .hero h1{
   font-size:clamp(2.3rem, 5vw, 3.9rem); line-height:1.22; color:var(--ivory); font-weight:500;
-  opacity:0; animation:fadeUp 1s ease forwards .6s; text-shadow:0 2px 24px rgba(0,0,0,0.5);
+  opacity:0; animation:fadeUp 1s ease forwards .6s; text-shadow:0 2px 6px rgba(0,0,0,0.75), 0 4px 30px rgba(0,0,0,0.6);
 }
 .hero h1 em{font-style:italic; color:var(--gold-bright); font-weight:500;}
 .hero p.lede{
   margin:32px auto 0; max-width:500px; color:var(--ivory-dim); font-size:1.05rem; font-weight:300;
-  opacity:0; animation:fadeUp 1s ease forwards .9s; text-shadow:0 2px 16px rgba(0,0,0,0.5);
+  opacity:0; animation:fadeUp 1s ease forwards .9s; text-shadow:0 1px 4px rgba(0,0,0,0.8), 0 2px 20px rgba(0,0,0,0.6);
 }
 .hero-ctas{display:flex; gap:16px; justify-content:center; margin-top:44px; flex-wrap:wrap;
   opacity:0; animation:fadeUp 1s ease forwards 1.15s;}
@@ -274,10 +276,15 @@ footer.site{border-top:1px solid var(--line-soft); background:var(--bg-warm); pa
   transition:all .2s ease; text-transform:uppercase; box-shadow:0 1px 4px rgba(90,70,30,0.04);
 }
 .tab-btn svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.3;}
-.tab-btn .count{background:rgba(181,135,47,0.16); color:var(--ivory-dim); font-size:0.7rem; padding:1px 8px; border-radius:10px;}
+.tab-btn .count{background:rgba(255,177,55,0.16); color:var(--ivory-dim); font-size:0.7rem; padding:1px 8px; border-radius:10px;}
 .tab-btn:hover{border-color:var(--gold-bright); color:var(--gold-bright);}
 .tab-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-deep)); color:#fffaf0; border-color:var(--gold-bright);}
 .tab-btn.active .count{background:rgba(255,255,255,0.22); color:#fffaf0;}
+.tab-add-btn{display:none; align-items:center; gap:8px; padding:12px 18px; border:1px dashed var(--line); background:transparent; color:var(--ivory-faint); font-size:0.82rem; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap; transition:all .2s ease;}
+.tab-add-btn svg{width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.5;}
+.tab-add-btn:hover{border-color:var(--gold); color:var(--gold-bright);}
+body.admin-on .tab-add-btn{display:flex;}
+.add-category-tile{grid-column:1/-1; min-height:90px; flex-direction:row; gap:12px;}
 
 .lib-body{padding:50px 0 110px;}
 .cat-panel{border:1px solid var(--line-soft); background:var(--bg-warm); padding:30px 34px; display:flex; justify-content:space-between; align-items:flex-start; gap:24px; margin-bottom:40px; flex-wrap:wrap;}
@@ -487,14 +494,7 @@ body.admin-on .add-tile{display:flex;}
         <h2>Karya Pilihan Studio</h2>
         <p>Sebagian kecil dari elemen dekorasi yang telah kami rancang — jelajahi katalog lengkap di Components Library.</p>
       </div>
-      <div class="portfolio-grid">
-        <a class="pf-item" onclick="goLibrary('pergola');return false;" href="#"><div class="ph g1"><svg viewBox="0 0 48 48"><path d="M8 40 L8 20 C8 12 16 8 24 8 C32 8 40 12 40 20 L40 40"/></svg></div><span class="label">Pergola Signature</span></a>
-        <a class="pf-item" onclick="goLibrary('backdrop');return false;" href="#"><div class="ph g2"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32"/><path d="M8 30 L18 20 L26 26 L40 14"/></svg></div><span class="label">Backdrop Altar</span></a>
-        <a class="pf-item" onclick="goLibrary('stage');return false;" href="#"><div class="ph g3"><svg viewBox="0 0 48 48"><rect x="6" y="26" width="36" height="10"/><path d="M6 26 L14 12 L34 12 L42 26"/></svg></div><span class="label">Tata Panggung</span></a>
-        <a class="pf-item" onclick="goLibrary('tree');return false;" href="#"><div class="ph g4"><svg viewBox="0 0 48 48"><circle cx="24" cy="18" r="12"/><path d="M24 30 L24 42"/></svg></div><span class="label">Tree Decor</span></a>
-        <a class="pf-item" onclick="goLibrary('chair');return false;" href="#"><div class="ph g2"><svg viewBox="0 0 48 48"><path d="M14 10 L14 30 M34 10 L34 30 M14 30 L34 30 M14 30 L10 40 M34 30 L38 40 M14 18 L34 18"/></svg></div><span class="label">Chair Collection</span></a>
-        <a class="pf-item" onclick="goLibrary('photobooth');return false;" href="#"><div class="ph g1"><svg viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="24" rx="2"/><circle cx="24" cy="26" r="7"/></svg></div><span class="label">Photobooth</span></a>
-      </div>
+      <div class="portfolio-grid" id="portfolioGrid"></div>
     </div>
   </section>
 
@@ -665,6 +665,19 @@ body.admin-on .add-tile{display:flex;}
   </div>
 </div>
 
+<!-- ============ MODAL: Tambah Kategori ============ -->
+<div class="modal-overlay" id="modalAddCategory">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalAddCategory')"><svg viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 5 L5 19"/></svg></button>
+    <div class="eyebrow" style="margin-bottom:14px;">Akses Pemilik</div>
+    <h3>Tambah Kategori Baru</h3>
+    <p class="sub">Kategori baru akan langsung muncul di tab Components Library dan bisa diisi foto.</p>
+    <div class="field"><label>Nama Kategori</label><input type="text" id="newCategoryName" placeholder="cth. Lighting, Carpet, Photobooth Vintage" onkeydown="if(event.key==='Enter')submitAddCategory()"></div>
+    <div class="modal-actions"><button class="btn btn-gold" style="flex:1" onclick="submitAddCategory()">Tambah Kategori</button></div>
+    <div class="form-msg" id="addCategoryMsg"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- ============ FOOTER ============ -->
@@ -707,7 +720,8 @@ body.admin-on .add-tile{display:flex;}
 /* ============================================================
    DATA MODEL
    ============================================================ */
-const CATEGORY_DEFS = [
+const DEFAULT_ICON = '<rect x="10" y="10" width="28" height="28" rx="4"/><path d="M18 24 L24 30 L32 18"/>';
+const DEFAULT_CATEGORIES = [
   {key:'pergola', label:'Pergola', title:'Katalog Model Pergola', desc:'Struktur kanopi & lorong megah bertema arsitektural mewah dengan aksen ukiran, besi gold, dan rimbunan bunga.',
    icon:'<path d="M8 40 L8 20 C8 12 16 8 24 8 C32 8 40 12 40 20 L40 40"/><path d="M8 40 L40 40"/>'},
   {key:'backdrop', label:'Backdrop', title:'Katalog Model Backdrop', desc:'Panel altar & latar upacara dengan komposisi bunga, kain draperi, dan pencahayaan sorot.',
@@ -725,6 +739,10 @@ const CATEGORY_DEFS = [
   {key:'photobooth', label:'Photobooth', title:'Katalog Photobooth', desc:'Instalasi photobooth bertema untuk kenangan tamu undangan.',
    icon:'<rect x="6" y="14" width="36" height="24" rx="2"/><circle cx="24" cy="26" r="7"/>'}
 ];
+let categories = JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
+
+/* Kategori unggulan yang tampil di teaser Portfolio halaman utama */
+const PORTFOLIO_FEATURED = ['stage','backdrop','tree','photobooth','walkway'];
 
 function seedCatalog(){
   const mk=(name,desc,price,badge)=>({id:'seed-'+Math.random().toString(36).slice(2,9), name, desc, price, badge:badge||'', image:''});
@@ -752,6 +770,7 @@ let catalog = null;
 let currentCat = 'pergola';
 let isAdmin = false;
 let editingItemId = null;
+let activeItemCategory = null;
 let simItems = {}; // id -> {name, price}
 const ADMIN_PIN = 'boxdesign2026';
 
@@ -778,10 +797,31 @@ try{
 /* ============================================================
    DATA LOADING — Firestore jika terhubung, jika tidak pakai data contoh
    ============================================================ */
+async function loadCategories(){
+  categories = JSON.parse(JSON.stringify(DEFAULT_CATEGORIES));
+  if(!db) return;
+  try{
+    const doc = await db.collection('meta').doc('categories').get();
+    if(doc.exists && doc.data().list && doc.data().list.length){
+      categories = doc.data().list;
+    } else {
+      await persistCategories();
+    }
+  }catch(e){ console.error(e); }
+}
+async function persistCategories(){
+  if(!db) return;
+  try{
+    await db.collection('meta').doc('categories').set({
+      list: categories.map(({key,label,title,desc,icon})=>({key,label,title,desc,icon}))
+    });
+  }catch(e){ console.error(e); showToast('Gagal menyimpan kategori ke Firebase.'); }
+}
 async function loadCatalog(){
-  catalog = {}; CATEGORY_DEFS.forEach(c=>catalog[c.key]=[]);
+  catalog = {}; categories.forEach(c=>catalog[c.key]=[]);
   if(!db){
     catalog = seedCatalog();
+    categories.forEach(c=>{ if(!catalog[c.key]) catalog[c.key]=[]; });
     showToast('Firebase belum dikonfigurasi — menampilkan data contoh (perubahan tidak tersimpan permanen).');
     return;
   }
@@ -851,19 +891,23 @@ function toggleMobileNav(){
    ============================================================ */
 function renderTabs(){
   const wrap = document.getElementById('tabsInner');
-  wrap.innerHTML = CATEGORY_DEFS.map(c=>`
+  wrap.innerHTML = categories.map(c=>`
     <button class="tab-btn ${c.key===currentCat?'active':''}" onclick="selectCategory('${c.key}')">
       <svg viewBox="0 0 48 48">${c.icon}</svg>
-      ${c.label}
+      ${escapeHtml(c.label)}
       <span class="count">${(catalog[c.key]||[]).length}</span>
-    </button>`).join('');
+    </button>`).join('')
+    + `<button class="tab-add-btn" onclick="openAddCategory()">
+        <svg viewBox="0 0 24 24"><path d="M12 5 L12 19 M5 12 L19 12"/></svg>
+        Tambah Kategori
+      </button>`;
 }
 function selectCategory(key){
   currentCat = key;
   document.getElementById('searchInput').value='';
-  const def = CATEGORY_DEFS.find(c=>c.key===key);
+  const def = categories.find(c=>c.key===key) || categories[0];
   document.getElementById('catTitle').textContent = def.title;
-  document.getElementById('catDesc').textContent = def.desc;
+  document.getElementById('catDesc').textContent = def.desc || '';
   document.getElementById('catIcon').innerHTML = def.icon;
   renderTabs();
   renderGrid();
@@ -883,10 +927,11 @@ function renderGrid(){
       <p>${q ? 'Tidak ada model yang cocok dengan pencarian.' : 'Belum ada model pada kategori ini.'}</p>
     </div>`;
   } else {
+    const catIcon = (categories.find(c=>c.key===currentCat)||{}).icon || DEFAULT_ICON;
     html = items.map(it=>{
       const media = it.image
         ? `<div class="ph has-img" style="background-image:url('${it.image}')"></div>`
-        : `<div class="ph ${['g1','g2','g3','g4'][Math.abs(hashStr(it.id))%4]}"><svg viewBox="0 0 48 48">${CATEGORY_DEFS.find(c=>c.key===currentCat).icon}</svg></div>`;
+        : `<div class="ph ${['g1','g2','g3','g4'][Math.abs(hashStr(it.id))%4]}"><svg viewBox="0 0 48 48">${catIcon}</svg></div>`;
       const badge = it.badge ? `<span class="item-badge ${it.badge}">${badgeLabel(it.badge)}</span>` : '';
       const price = it.price ? `Rp ${Number(it.price).toLocaleString('id-ID')}` : 'Hubungi kami';
       const added = simItems[it.id] ? 'added' : '';
@@ -896,8 +941,8 @@ function renderGrid(){
         <div class="item-media">
           ${badge}
           <div class="item-admin-controls">
-            <button class="icon-btn" title="Ubah" onclick="openEditItem('${it.id}')"><svg viewBox="0 0 24 24"><path d="M4 20 L4 16 L16 4 L20 8 L8 20 Z"/></svg></button>
-            <button class="icon-btn danger" title="Hapus" onclick="deleteItem('${it.id}')"><svg viewBox="0 0 24 24"><path d="M5 7 L19 7 M9 7 V4 H15 V7 M7 7 L8 20 H16 L17 7"/></svg></button>
+            <button class="icon-btn" title="Ubah" onclick="openEditItem('${currentCat}','${it.id}')"><svg viewBox="0 0 24 24"><path d="M4 20 L4 16 L16 4 L20 8 L8 20 Z"/></svg></button>
+            <button class="icon-btn danger" title="Hapus" onclick="deleteItem('${currentCat}','${it.id}')"><svg viewBox="0 0 24 24"><path d="M5 7 L19 7 M9 7 V4 H15 V7 M7 7 L8 20 H16 L17 7"/></svg></button>
           </div>
           ${media}
         </div>
@@ -911,13 +956,44 @@ function renderGrid(){
         </div>
       </div>`;
     }).join('');
-    html += `<button class="add-tile" onclick="openAddItem()"><svg viewBox="0 0 48 48"><path d="M24 10 L24 38 M10 24 L38 24"/></svg><span>Tambah Model Baru</span></button>`;
+    html += `<button class="add-tile" onclick="openAddItem('${currentCat}')"><svg viewBox="0 0 48 48"><path d="M24 10 L24 38 M10 24 L38 24"/></svg><span>Tambah Model Baru</span></button>`;
   }
   grid.innerHTML = html;
 }
 function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){h=(h<<5)-h+s.charCodeAt(i); h|=0;} return h; }
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 function escapeAttr(s){ return escapeHtml(s).replace(/'/g,"&#39;"); }
+
+/* ============================================================
+   PORTFOLIO TEASER (Halaman Utama)
+   ============================================================ */
+function renderPortfolioTeaser(){
+  const wrap = document.getElementById('portfolioGrid');
+  if(!wrap || !catalog) return;
+  const cats = PORTFOLIO_FEATURED.map(key=>categories.find(c=>c.key===key)).filter(Boolean);
+  let html = cats.map((c,idx)=>{
+    const items = catalog[c.key]||[];
+    const it = items[0];
+    const media = (it && it.image)
+      ? `<div class="ph has-img" style="background-image:url('${it.image}')"></div>`
+      : `<div class="ph ${['g1','g2','g3','g4'][idx%4]}"><svg viewBox="0 0 48 48">${c.icon}</svg></div>`;
+    const editDelete = it ? `
+        <button class="icon-btn" title="Ubah" onclick="event.stopPropagation();openEditItem('${c.key}','${it.id}')"><svg viewBox="0 0 24 24"><path d="M4 20 L4 16 L16 4 L20 8 L8 20 Z"/></svg></button>
+        <button class="icon-btn danger" title="Hapus" onclick="event.stopPropagation();deleteItem('${c.key}','${it.id}')"><svg viewBox="0 0 24 24"><path d="M5 7 L19 7 M9 7 V4 H15 V7 M7 7 L8 20 H16 L17 7"/></svg></button>` : '';
+    const adminCtr = `<div class="item-admin-controls">
+        <button class="icon-btn" title="Tambah Foto" onclick="event.stopPropagation();openAddItem('${c.key}')"><svg viewBox="0 0 24 24"><path d="M12 5 L12 19 M5 12 L19 12"/></svg></button>
+        ${editDelete}
+      </div>`;
+    const label = it ? escapeHtml(it.name) : c.label;
+    return `<a class="pf-item" href="#" onclick="goLibrary('${c.key}');return false;">
+        ${adminCtr}
+        ${media}
+        <span class="label">${label}</span>
+      </a>`;
+  }).join('');
+  html += `<button class="add-tile add-category-tile" onclick="openAddCategory()"><svg viewBox="0 0 48 48"><path d="M24 10 L24 38 M10 24 L38 24"/></svg><span>Tambah Kategori Baru</span></button>`;
+  wrap.innerHTML = html;
+}
 
 /* ============================================================
    ADMIN MODE
@@ -937,7 +1013,8 @@ function checkPin(){
     document.getElementById('pinInput').value='';
     msg.textContent='';
     renderGrid();
-    showToast('Mode Pemilik diaktifkan.');
+    renderPortfolioTeaser();
+    showToast('Mode Pemilik diaktifkan — Anda kini bisa mengelola foto & kategori dari Beranda maupun Components Library.');
   } else {
     msg.textContent = 'PIN salah. Coba lagi.';
     msg.className='form-msg err';
@@ -949,17 +1026,20 @@ function exitAdmin(){
   document.getElementById('adminBar').classList.remove('on');
   document.getElementById('adminToggleBtn').innerHTML = '🔒 <span class="label">Akses Pemilik (Upload / Hapus)</span>';
   renderGrid();
+  renderPortfolioTeaser();
 }
 
 /* ============================================================
    ADD / EDIT / DELETE ITEM
    ============================================================ */
 let pendingImage = '';
-function openAddItem(){
+function openAddItem(cat){
+  activeItemCategory = cat || currentCat;
   editingItemId = null;
   pendingImage = '';
+  const def = categories.find(c=>c.key===activeItemCategory);
   document.getElementById('itemModalTitle').textContent = 'Tambah Model Baru';
-  document.getElementById('itemModalSub').textContent = `Isi detail model baru untuk kategori "${CATEGORY_DEFS.find(c=>c.key===currentCat).label}".`;
+  document.getElementById('itemModalSub').textContent = `Isi detail model baru untuk kategori "${def ? escapeHtml(def.label) : ''}".`;
   document.getElementById('itemName').value='';
   document.getElementById('itemDesc').value='';
   document.getElementById('itemPrice').value='';
@@ -969,8 +1049,9 @@ function openAddItem(){
   document.getElementById('itemMsg').textContent='';
   openModal('modalItem');
 }
-function openEditItem(id){
-  const it = (catalog[currentCat]||[]).find(x=>x.id===id);
+function openEditItem(cat, id){
+  activeItemCategory = cat;
+  const it = (catalog[cat]||[]).find(x=>x.id===id);
   if(!it) return;
   editingItemId = id;
   pendingImage = it.image || '';
@@ -1040,26 +1121,28 @@ async function saveItem(){
   const name = document.getElementById('itemName').value.trim();
   const msg = document.getElementById('itemMsg');
   if(!name){ msg.textContent='Nama model wajib diisi.'; msg.className='form-msg err'; return; }
+  const cat = activeItemCategory || currentCat;
   const desc = document.getElementById('itemDesc').value.trim();
   const price = document.getElementById('itemPrice').value;
   const badge = document.getElementById('itemBadge').value;
-  const data = {category: currentCat, name, desc, price: price?Number(price):0, badge, image: pendingImage};
+  const data = {category: cat, name, desc, price: price?Number(price):0, badge, image: pendingImage};
 
   if(!db){ msg.textContent='Firebase belum terhubung — item tidak dapat disimpan permanen. Lihat FIREBASE-SETUP.md.'; msg.className='form-msg err'; return; }
 
   try{
     if(editingItemId){
       await db.collection('items').doc(editingItemId).set(data, {merge:true});
-      const it = catalog[currentCat].find(x=>x.id===editingItemId);
+      const it = (catalog[cat]||[]).find(x=>x.id===editingItemId);
       if(it) Object.assign(it, data);
     } else {
       const ref = await db.collection('items').add(data);
-      if(!catalog[currentCat]) catalog[currentCat]=[];
-      catalog[currentCat].push({id:ref.id, ...data});
+      if(!catalog[cat]) catalog[cat]=[];
+      catalog[cat].push({id:ref.id, ...data});
     }
     closeModal('modalItem');
     renderTabs();
     renderGrid();
+    renderPortfolioTeaser();
     showToast('Item berhasil disimpan.');
   }catch(e){
     console.error(e);
@@ -1067,19 +1150,53 @@ async function saveItem(){
     msg.className='form-msg err';
   }
 }
-async function deleteItem(id){
+async function deleteItem(cat, id){
   if(!confirm('Hapus model ini dari katalog?')) return;
   try{
     if(db) await db.collection('items').doc(id).delete();
-    catalog[currentCat] = (catalog[currentCat]||[]).filter(x=>x.id!==id);
+    catalog[cat] = (catalog[cat]||[]).filter(x=>x.id!==id);
     delete simItems[id];
     renderTabs();
     renderGrid();
+    renderPortfolioTeaser();
     showToast('Item dihapus.');
   }catch(e){
     console.error(e);
     showToast('Gagal menghapus item dari Firebase.');
   }
+}
+
+/* ============================================================
+   ADD CATEGORY
+   ============================================================ */
+function slugifyCategory(s){
+  const base = s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  return base || ('kategori-'+Date.now());
+}
+function openAddCategory(){
+  document.getElementById('newCategoryName').value='';
+  document.getElementById('addCategoryMsg').textContent='';
+  openModal('modalAddCategory');
+  setTimeout(()=>document.getElementById('newCategoryName').focus(),100);
+}
+async function submitAddCategory(){
+  const input = document.getElementById('newCategoryName');
+  const msg = document.getElementById('addCategoryMsg');
+  const name = input.value.trim();
+  if(!name){ msg.textContent='Nama kategori wajib diisi.'; msg.className='form-msg err'; return; }
+  let key = slugifyCategory(name);
+  let n = 1;
+  while(categories.find(c=>c.key===key)){ n++; key = slugifyCategory(name)+'-'+n; }
+  const newCat = {key, label:name, title:`Katalog ${name}`, desc:`Koleksi model ${name} rancangan Box Design.`, icon: DEFAULT_ICON};
+  categories.push(newCat);
+  if(!catalog) catalog = {};
+  catalog[key] = [];
+  await persistCategories();
+  renderTabs();
+  renderPortfolioTeaser();
+  closeModal('modalAddCategory');
+  showToast(`Kategori "${name}" berhasil ditambahkan.`);
+  goLibrary(key);
 }
 
 /* ============================================================
@@ -1140,11 +1257,14 @@ function showToast(text){
    INIT
    ============================================================ */
 (async function init(){
+  await loadCategories();
   await loadCatalog();
   renderTabs();
-  selectCategory('pergola');
+  selectCategory(categories[0].key);
+  renderPortfolioTeaser();
   goHome();
 })();
 </script>
+
 </body>
 </html>
