@@ -3,7 +3,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // Koleksi "items" menyimpan seluruh katalog Components Library
-    // (pergola, backdrop, tree, stage, chair, table, walkway, photobooth).
+    // (pergola, backdrop, tree, stage, chair, table, walkway, photobooth, dst).
     match /items/{itemId} {
       allow read: if true;   // katalog boleh dilihat siapa saja (publik)
       allow write: if true;  // upload/ubah/hapus — dijaga oleh PIN di sisi tampilan,
@@ -12,5 +12,13 @@ service cloud.firestore {
                               // Firebase Authentication lalu ganti baris ini menjadi:
                               // allow write: if request.auth != null;
     }
+
+    // Dokumen "meta/categories" menyimpan daftar kategori (termasuk kategori
+    // baru yang ditambahkan lewat tombol "Tambah Kategori" di Mode Pemilik).
+    match /meta/{docId} {
+      allow read: if true;
+      allow write: if true;  // sama seperti di atas — PIN di sisi tampilan saja
+    }
   }
 }
+
