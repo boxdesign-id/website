@@ -995,8 +995,8 @@ function renderGrid(){
         </div>
       </div>`;
     }).join('');
-    html += `<button class="add-tile" onclick="openAddItem('${currentCat}')"><svg viewBox="0 0 48 48"><path d="M24 10 L24 38 M10 24 L38 24"/></svg><span>Tambah Model Baru</span></button>`;
   }
+  html += `<button class="add-tile" onclick="openAddItem('${currentCat}')"><svg viewBox="0 0 48 48"><path d="M24 10 L24 38 M10 24 L38 24"/></svg><span>Tambah Model Baru</span></button>`;
   grid.innerHTML = html;
 }
 function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){h=(h<<5)-h+s.charCodeAt(i); h|=0;} return h; }
