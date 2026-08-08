@@ -173,6 +173,16 @@ nav.main-links a:hover::after{width:100%;}
 .stat .num{font-family:var(--serif); font-size:2.1rem; color:var(--gold-bright);}
 .stat .lbl{font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ivory-faint); margin-top:6px;}
 
+/* clients marquee */
+.clients-strip{background:var(--bg); border-bottom:1px solid var(--line-soft); padding:38px 0 42px; overflow:hidden;}
+.clients-marquee{width:100%; overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%); mask-image:linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);}
+.clients-track{display:flex; align-items:center; width:max-content; animation:clientsScroll 42s linear infinite;}
+.clients-strip:hover .clients-track{animation-play-state:paused;}
+.client-name{font-family:var(--serif-sc); font-size:1rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ivory-dim); white-space:nowrap; padding:0 28px;}
+.client-dot{color:var(--gold-dim); font-size:0.6rem; flex-shrink:0;}
+@keyframes clientsScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@media(max-width:640px){.client-name{font-size:0.86rem; padding:0 18px;}}
+
 /* ============ SECTION GENERIC ============ */
 section{position:relative; z-index:1;}
 .section{padding:120px 0;}
@@ -442,6 +452,40 @@ body.admin-on .add-tile{display:flex;}
       <div class="stat"><div class="num">3</div><div class="lbl">Format — 2D / 3D / Animasi</div></div>
       <div class="stat"><div class="num">12</div><div class="lbl">Kota Dilayani</div></div>
       <div class="stat"><div class="num">9 Thn</div><div class="lbl">Pengalaman Studio</div></div>
+    </div>
+  </div>
+
+  <div class="clients-strip">
+    <div class="container">
+      <div class="eyebrow center" style="justify-content:center; width:fit-content; margin:0 auto 24px;">Dipercaya Oleh Mitra &amp; Klien Kami</div>
+    </div>
+    <div class="clients-marquee">
+      <div class="clients-track">
+        <span class="client-name">Davayu</span><span class="client-dot">✦</span>
+        <span class="client-name">Vins</span><span class="client-dot">✦</span>
+        <span class="client-name">Puspita Sawargi</span><span class="client-dot">✦</span>
+        <span class="client-name">Widia Group</span><span class="client-dot">✦</span>
+        <span class="client-name">YK Dekorasi</span><span class="client-dot">✦</span>
+        <span class="client-name">Rafardhan Dekorasi</span><span class="client-dot">✦</span>
+        <span class="client-name">By Ayu Puspita</span><span class="client-dot">✦</span>
+        <span class="client-name">Madelief</span><span class="client-dot">✦</span>
+        <span class="client-name">Wongboga Catering</span><span class="client-dot">✦</span>
+        <span class="client-name">Arista WO</span><span class="client-dot">✦</span>
+        <span class="client-name">Adena WO</span><span class="client-dot">✦</span>
+        <span class="client-name">KJ Jogja</span><span class="client-dot">✦</span>
+        <span class="client-name">Davayu</span><span class="client-dot">✦</span>
+        <span class="client-name">Vins</span><span class="client-dot">✦</span>
+        <span class="client-name">Puspita Sawargi</span><span class="client-dot">✦</span>
+        <span class="client-name">Widia Group</span><span class="client-dot">✦</span>
+        <span class="client-name">YK Dekorasi</span><span class="client-dot">✦</span>
+        <span class="client-name">Rafardhan Dekorasi</span><span class="client-dot">✦</span>
+        <span class="client-name">By Ayu Puspita</span><span class="client-dot">✦</span>
+        <span class="client-name">Madelief</span><span class="client-dot">✦</span>
+        <span class="client-name">Wongboga Catering</span><span class="client-dot">✦</span>
+        <span class="client-name">Arista WO</span><span class="client-dot">✦</span>
+        <span class="client-name">Adena WO</span><span class="client-dot">✦</span>
+        <span class="client-name">KJ Jogja</span><span class="client-dot">✦</span>
+      </div>
     </div>
   </div>
 
