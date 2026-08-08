@@ -10,21 +10,21 @@
 <style>
 /* ============ TOKENS — Royal Burgundy & Gold (dari Company Profile) ============ */
 :root{
-  --bg: #1a0a0d;
-  --bg-warm: #240e12;
-  --surface: #2c1116;
-  --surface-2: #35151a;
-  --line: #532027;
-  --line-soft: #341419;
+  --bg: #220d11;
+  --bg-warm: #2c1116;
+  --surface: #35141a;
+  --surface-2: #3f1820;
+  --line: #63262e;
+  --line-soft: #401a20;
   --gold: #ffb137;
   --gold-deep: #d9922c;
   --gold-bright: #ffc866;
-  --gold-dim: #6b4322;
+  --gold-dim: #7a4c26;
   --maroon: #c02123;
   --burgundy: #821b2b;
   --ivory: #f5eee7;
-  --ivory-dim: #c7b3ab;
-  --ivory-faint: #8a716b;
+  --ivory-dim: #cdbab2;
+  --ivory-faint: #93796f;
   --success: #8fae8a;
   --danger: #e0574f;
   --radius: 2px;
@@ -142,10 +142,16 @@ nav.main-links a:hover::after{width:100%;}
 .hero-photo::after{
   content:""; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse 58% 50% at 50% 32%, rgba(26,10,13,0.5), rgba(26,10,13,0.1) 72%),
-    linear-gradient(180deg, rgba(26,10,13,0.45) 0%, rgba(26,10,13,0.1) 28%, rgba(26,10,13,0.18) 55%, rgba(26,10,13,0.7) 100%);
+    radial-gradient(ellipse 58% 50% at 50% 32%, rgba(34,13,17,0.5), rgba(34,13,17,0.1) 72%),
+    linear-gradient(180deg, rgba(34,13,17,0.45) 0%, rgba(34,13,17,0.1) 28%, rgba(34,13,17,0.18) 55%, rgba(34,13,17,0.7) 100%);
 }
-.hero-content{position:relative; z-index:1; max-width:760px; margin:0 auto;}
+.hero-content{
+  position:relative; z-index:1; max-width:800px; margin:0 auto;
+  background:rgba(18,8,10,0.42); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,177,55,0.14); border-radius:2px;
+  padding:54px 52px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.35);
+}
 .hero-content .eyebrow{margin-bottom:30px; opacity:0; animation:fadeUp 1s ease forwards .15s; text-shadow:0 1px 6px rgba(0,0,0,0.85);}
 .hero h1{
   font-size:clamp(2.3rem, 5vw, 3.9rem); line-height:1.22; color:var(--ivory); font-weight:500;
@@ -159,6 +165,7 @@ nav.main-links a:hover::after{width:100%;}
 .hero-ctas{display:flex; gap:16px; justify-content:center; margin-top:44px; flex-wrap:wrap;
   opacity:0; animation:fadeUp 1s ease forwards 1.15s;}
 @keyframes fadeUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
+@media(max-width:640px){.hero-content{padding:38px 26px;}}
 .scroll-cue{position:absolute; bottom:34px; left:50%; transform:translateX(-50%); z-index:1;
   font-size:0.65rem; letter-spacing:0.25em; color:var(--ivory-faint); text-transform:uppercase;
   display:flex; flex-direction:column; align-items:center; gap:10px;
@@ -174,12 +181,12 @@ nav.main-links a:hover::after{width:100%;}
 .stat .lbl{font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ivory-faint); margin-top:6px;}
 
 /* clients marquee */
-.clients-strip{background:var(--bg); border-bottom:1px solid var(--line-soft); padding:38px 0 42px; overflow:hidden;}
-.clients-marquee{width:100%; overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%); mask-image:linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);}
-.clients-track{display:flex; align-items:center; width:max-content; animation:clientsScroll 42s linear infinite;}
+.clients-strip{background:var(--surface); border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); padding:34px 0 38px; overflow:hidden;}
+.clients-marquee{width:100%; overflow:hidden;}
+.clients-track{display:flex; align-items:center; width:max-content; animation:clientsScroll 34s linear infinite;}
 .clients-strip:hover .clients-track{animation-play-state:paused;}
-.client-name{font-family:var(--serif-sc); font-size:1rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ivory-dim); white-space:nowrap; padding:0 28px;}
-.client-dot{color:var(--gold-dim); font-size:0.6rem; flex-shrink:0;}
+.client-name{font-family:var(--serif-sc); font-size:1.05rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ivory); white-space:nowrap; padding:0 28px;}
+.client-dot{color:var(--gold); font-size:0.65rem; flex-shrink:0;}
 @keyframes clientsScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
 @media(max-width:640px){.client-name{font-size:0.86rem; padding:0 18px;}}
 
