@@ -369,11 +369,8 @@ body.admin-on .item-admin-controls{display:flex;}
 .icon-btn:hover{border-color:var(--gold-dim); color:var(--gold-bright);}
 .icon-btn svg{width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.4;}
 .icon-btn.danger:hover{border-color:var(--danger); color:var(--danger);}
-.item-info{padding:20px 20px 22px; display:flex; flex-direction:column; gap:8px; flex:1;}
+.item-info{padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px;}
 .item-info h4{font-size:1.15rem;}
-.item-info p{font-size:0.82rem; color:var(--ivory-dim); flex:1;}
-.item-foot{display:flex; justify-content:space-between; align-items:center; margin-top:6px; padding-top:12px; border-top:1px solid var(--line-soft);}
-.item-price{font-family:var(--serif); color:var(--gold-bright); font-size:1.05rem;}
 .item-add{font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ivory-dim); border:1px solid var(--line); padding:7px 12px; transition:all .2s ease;}
 .item-add:hover{border-color:var(--gold); color:var(--gold-bright);}
 .item-add.added{border-color:var(--success); color:var(--success);}
@@ -884,10 +881,10 @@ body.admin-on .add-tile{display:flex;}
     <h3>Ceritakan Rencana Pernikahan Anda</h3>
     <p class="sub">Tim kami akan menghubungi Anda dalam 1x24 jam untuk menjadwalkan sesi konsultasi.</p>
     <form onsubmit="submitConsult(event)">
-      <div class="field"><label>Nama</label><input type="text" required placeholder="Nama Anda &amp; Pasangan"></div>
-      <div class="field"><label>WhatsApp / Email</label><input type="text" required placeholder="08xx-xxxx-xxxx atau email"></div>
-      <div class="field"><label>Tanggal &amp; Venue (perkiraan)</label><input type="text" placeholder="cth. 20 Des 2026, Bali"></div>
-      <div class="field"><label>Ceritakan Konsep Anda</label><textarea placeholder="Tema, jumlah tamu, anggaran perkiraan..."></textarea></div>
+      <div class="field"><label>Nama</label><input type="text" id="consultNama" required placeholder="Nama Anda &amp; Pasangan"></div>
+      <div class="field"><label>WhatsApp / Email</label><input type="text" id="consultContact" required placeholder="08xx-xxxx-xxxx atau email"></div>
+      <div class="field"><label>Tanggal &amp; Venue (perkiraan)</label><input type="text" id="consultVenue" placeholder="cth. 20 Des 2026, Bali"></div>
+      <div class="field"><label>Ceritakan Konsep Anda</label><textarea id="consultConcept" placeholder="Tema, jumlah tamu, anggaran perkiraan..."></textarea></div>
       <div class="modal-actions"><button type="submit" class="btn btn-gold" style="flex:1">Kirim Permintaan</button></div>
       <div class="form-msg" id="consultMsg"></div>
     </form>
@@ -924,17 +921,13 @@ body.admin-on .add-tile{display:flex;}
       </div>
     </div>
     <div class="field"><label>Nama Model</label><input type="text" id="itemName" placeholder="cth. Golden Arch Pergola"></div>
-    <div class="field"><label>Deskripsi</label><textarea id="itemDesc" placeholder="Deskripsi singkat model & material yang digunakan"></textarea></div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-      <div class="field"><label>Estimasi Harga (Rp)</label><input type="number" id="itemPrice" placeholder="8500000"></div>
-      <div class="field"><label>Label</label>
-        <select id="itemBadge">
-          <option value="">Tanpa Label</option>
-          <option value="best">Best Seller</option>
-          <option value="sig">Signature</option>
-          <option value="new">New</option>
-        </select>
-      </div>
+    <div class="field"><label>Label</label>
+      <select id="itemBadge">
+        <option value="">Tanpa Label</option>
+        <option value="best">Best Seller</option>
+        <option value="sig">Signature</option>
+        <option value="new">New</option>
+      </select>
     </div>
     <div class="modal-actions">
       <button class="btn btn-outline-gold" onclick="closeModal('modalItem')">Batal</button>
@@ -986,10 +979,11 @@ body.admin-on .add-tile{display:flex;}
         <li><a href="#" onclick="goLibrary();return false;">Components Library</a></li>
       </ul></div>
       <div><h5>Layanan</h5><ul>
-        <li>Desain 2D</li><li>Visualisasi 3D</li><li>Animasi Walkthrough</li><li>Simulasi Anggaran</li>
+        <li>Desain 2D</li><li>Visualisasi 3D</li><li>Animasi Walkthrough</li><li>Paket Harga</li>
       </ul></div>
       <div><h5>Hubungi Kami</h5><ul>
-        <li>hello@boxdesign.studio</li><li>+62 812-0000-0000</li><li>@boxdesign.id</li>
+        <li><a href="https://wa.me/6287852414001?text=Halo%2C%20Box%20Design%2C%20sepertinya%20saya%20tertarik%20dengan%20design-nya%20nih.%20Ijin%20berdiskusi%2C%20ya%3F" target="_blank" rel="noopener">0878-5241-4001 (Tim Design Kami)</a></li>
+        <li>hello@boxdesign.studio</li><li>@boxdesign.id</li>
       </ul></div>
     </div>
     <div class="footer-bottom">
@@ -1111,6 +1105,7 @@ let isAdmin = false;
 let editingItemId = null;
 let activeItemCategory = null;
 const ADMIN_PIN = 'boxdesign2026';
+const WA_NUMBER = '6287852414001'; // 0878-5241-4001
 
 /* ============================================================
    FIREBASE (Firestore) — isi konfigurasi proyek Firebase Anda di sini.
@@ -1306,7 +1301,6 @@ function renderGrid(){
         ? `<div class="ph has-img" style="background-image:url('${it.image}')"></div>`
         : `<div class="ph ${['g1','g2','g3','g4'][Math.abs(hashStr(it.id))%4]}"><svg viewBox="0 0 48 48">${catIcon}</svg></div>`;
       const badge = it.badge ? `<span class="item-badge ${it.badge}">${badgeLabel(it.badge)}</span>` : '';
-      const price = it.price ? `Rp ${Number(it.price).toLocaleString('id-ID')}` : 'Hubungi kami';
       return `
       <div class="item-card">
         <div class="item-media">
@@ -1319,10 +1313,6 @@ function renderGrid(){
         </div>
         <div class="item-info">
           <h4>${escapeHtml(it.name)}</h4>
-          <p>${escapeHtml(it.desc||'')}</p>
-          <div class="item-foot">
-            <span class="item-price">${price}</span>
-          </div>
         </div>
       </div>`;
     }).join('');
@@ -1411,8 +1401,6 @@ function openAddItem(cat){
   document.getElementById('itemModalTitle').textContent = 'Tambah Model Baru';
   document.getElementById('itemModalSub').textContent = `Isi detail model baru untuk kategori "${def ? escapeHtml(def.label) : ''}".`;
   document.getElementById('itemName').value='';
-  document.getElementById('itemDesc').value='';
-  document.getElementById('itemPrice').value='';
   document.getElementById('itemBadge').value='';
   document.getElementById('uploadPreview').style.display='none';
   document.getElementById('uploadHint').style.display='block';
@@ -1428,8 +1416,6 @@ function openEditItem(cat, id){
   document.getElementById('itemModalTitle').textContent = 'Ubah Model';
   document.getElementById('itemModalSub').textContent = 'Perbarui detail atau foto model ini.';
   document.getElementById('itemName').value = it.name;
-  document.getElementById('itemDesc').value = it.desc||'';
-  document.getElementById('itemPrice').value = it.price||'';
   document.getElementById('itemBadge').value = it.badge||'';
   if(it.image){
     document.getElementById('uploadPreview').src = it.image;
@@ -1492,10 +1478,8 @@ async function saveItem(){
   const msg = document.getElementById('itemMsg');
   if(!name){ msg.textContent='Nama model wajib diisi.'; msg.className='form-msg err'; return; }
   const cat = activeItemCategory || currentCat;
-  const desc = document.getElementById('itemDesc').value.trim();
-  const price = document.getElementById('itemPrice').value;
   const badge = document.getElementById('itemBadge').value;
-  const data = {category: cat, name, desc, price: price?Number(price):0, badge, image: pendingImage};
+  const data = {category: cat, name, badge, image: pendingImage};
 
   if(!db){ msg.textContent='Firebase belum terhubung — item tidak dapat disimpan permanen. Lihat FIREBASE-SETUP.md.'; msg.className='form-msg err'; return; }
 
@@ -1600,9 +1584,20 @@ document.querySelectorAll('.modal-overlay').forEach(ov=>{
 });
 function submitConsult(e){
   e.preventDefault();
+  const nama = document.getElementById('consultNama').value.trim();
+  const kontak = document.getElementById('consultContact').value.trim();
+  const venue = document.getElementById('consultVenue').value.trim();
+  const konsep = document.getElementById('consultConcept').value.trim();
+
+  let msg = `Halo Box Design, saya ingin konsultasi.\n\nNama: ${nama}`;
+  if(venue) msg += `\nTanggal & Venue (perkiraan): ${venue}`;
+  msg += `\nKontak: ${kontak}`;
+  if(konsep) msg += `\n\nKonsep: ${konsep}`;
+
   document.getElementById('consultMsg').className='form-msg ok';
-  document.getElementById('consultMsg').textContent='Terima kasih! Tim Box Design akan segera menghubungi Anda.';
-  setTimeout(()=>closeModal('modalKonsultasi'),1600);
+  document.getElementById('consultMsg').textContent='Mengarahkan Anda ke WhatsApp...';
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  setTimeout(()=>closeModal('modalKonsultasi'),900);
 }
 let toastTimer;
 function showToast(text){
