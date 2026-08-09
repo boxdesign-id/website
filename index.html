@@ -412,11 +412,22 @@ body.admin-on .add-tile{display:flex;}
 .mb-board-eyebrow{font-family:var(--serif-sc); font-size:0.85rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-bright);}
 .mb-board-head h2{font-size:2.2rem; margin-top:10px;}
 .mb-board-head p{color:var(--ivory-dim); margin-top:10px; font-size:0.9rem;}
-.mb-result-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:40px;}
-.mb-result-card{background:var(--surface); border:1px solid var(--line-soft); overflow:hidden; box-shadow:var(--shadow-sm);}
-.mb-result-media{aspect-ratio:4/3; overflow:hidden;}
-.mb-result-label{padding:14px 16px; font-size:0.92rem; color:var(--ivory);}
-.mb-result-cat{display:block; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:4px;}
+.mb-board-cols{display:grid; grid-template-columns:1fr 2fr; gap:40px; margin-top:40px; align-items:start;}
+.mb-col-left h5, .mb-col-right h5{font-family:var(--serif-sc); font-size:0.85rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-bright); margin:26px 0 14px;}
+.mb-col-left h5:first-child{margin-top:0;}
+.mb-collage{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+.mb-collage-item{aspect-ratio:1/1; overflow:hidden; border:1px solid var(--line-soft);}
+.mb-collage-item .ph{width:100%; height:100%;}
+.mb-palette{display:flex; gap:10px; margin-top:8px;}
+.mb-palette span{width:30px; height:30px; border-radius:50%; display:inline-block; box-shadow:var(--shadow-sm);}
+.mb-concept-text{color:var(--ivory-dim); font-size:0.9rem; line-height:1.75;}
+.mb-floorplan-wrap{background:var(--bg); border:1px solid var(--line-soft); padding:10px;}
+.mb-notes{font-size:0.78rem; color:var(--ivory-faint); text-align:center; margin-top:12px;}
+.mb-legend{display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; margin-top:22px;}
+.mb-legend-item{display:flex; align-items:center; gap:10px; font-size:0.85rem; color:var(--ivory-dim);}
+.mb-legend-num{width:20px; height:20px; border-radius:50%; border:1px solid var(--gold-dim); color:var(--gold-bright); font-size:0.7rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+@media(max-width:820px){.mb-board-cols{grid-template-columns:1fr;} .mb-legend{grid-template-columns:1fr;}}
+
 .mb-board-foot{text-align:center; margin-top:44px; padding-top:26px; border-top:1px solid var(--line-soft); display:flex; flex-direction:column; gap:6px;}
 .mb-board-foot span:first-child{font-family:var(--serif-sc); letter-spacing:0.2em; color:var(--gold-bright); font-size:0.95rem;}
 .mb-board-foot span:last-child{font-size:0.72rem; color:var(--ivory-faint); letter-spacing:0.05em;}
@@ -1575,41 +1586,152 @@ function selectMoodboardItem(catKey, itemId){
   renderMoodboardPicker();
 }
 
+/* ---- generate a top-down venue floor-plan SVG from the concept answers ---- */
+function tableGlyph(cx,cy){
+  let chairs='';
+  for(let i=0;i<8;i++){
+    const a = (Math.PI*2/8)*i;
+    const sx = cx + 23*Math.cos(a), sy = cy + 23*Math.sin(a);
+    chairs += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="3"/>`;
+  }
+  return `<circle cx="${cx}" cy="${cy}" r="15"/>${chairs}`;
+}
+function chipGlyph(x,y,w,label,icon){
+  return `<g>
+    <rect x="${x}" y="${y}" width="${w}" height="46" rx="3" fill="rgba(255,177,55,0.06)" stroke="#a8536080"/>
+    <text x="${x+w/2}" y="${y+19}" text-anchor="middle" font-size="9" letter-spacing="1" fill="#ffc866" font-family="Georgia,serif">${icon}</text>
+    <text x="${x+w/2}" y="${y+34}" text-anchor="middle" font-size="9.5" fill="#f5eee7" font-family="Georgia,serif">${label}</text>
+  </g>`;
+}
+function buildFloorPlanSVG(concept){
+  const W=760, H=920;
+  const guests = parseInt(concept.guests) || 150;
+  const tablesTotal = Math.max(6, Math.min(48, Math.ceil(guests/10)));
+  const tablesPerSide = Math.ceil(tablesTotal/2);
+  const cols = 2;
+  const rows = Math.max(2, Math.min(9, Math.ceil(tablesPerSide/cols)));
+
+  const zoneTop=250, zoneBottom=760, zoneH = zoneBottom-zoneTop;
+  const rowGap = zoneH/rows;
+  const leftColX=[210,275], rightColX=[485,550];
+
+  let tables='';
+  for(let r=0;r<rows;r++){
+    const cy = zoneTop + rowGap*r + rowGap/2;
+    leftColX.forEach(cx=> tables += tableGlyph(cx,cy));
+    rightColX.forEach(cx=> tables += tableGlyph(cx,cy));
+  }
+
+  // side strips: stack chips for area makan / area vip / gubukan depending on chosen location
+  const leftStrip=[], rightStrip=[], notes=[];
+  function place(loc, label, icon){
+    if(!loc) return;
+    if(loc.includes('Kiri')) leftStrip.push([label,icon]);
+    else if(loc.includes('Kanan')) rightStrip.push([label,icon]);
+    else notes.push(label);
+  }
+  place(concept.prasmanan, 'AREA MAKAN', '🍽');
+  if(concept.vip==='Ya') place(concept.vipLoc, 'AREA VIP', '★');
+  if(concept.gubukanLoc && concept.gubukanLoc.includes('Mengelilingi')){
+    notes.push(`${concept.gubukanCount||''} GUBUKAN MENGELILINGI VENUE`);
+  } else {
+    place(concept.gubukanLoc, `${concept.gubukanCount||''} GUBUKAN`, '⛩');
+  }
+  if(concept.entertain){
+    if(concept.entertain.includes('Kiri')) leftStrip.push(['ENTERTAINMENT','♪']);
+    else if(concept.entertain.includes('Kanan')) rightStrip.push(['ENTERTAINMENT','♪']);
+    else notes.push('ENTERTAINMENT: '+concept.entertain.toUpperCase());
+  }
+  let stripsSvg='';
+  leftStrip.forEach((c,i)=> stripsSvg += chipGlyph(60,260+i*60,110,c[0],c[1]));
+  rightStrip.forEach((c,i)=> stripsSvg += chipGlyph(590,260+i*60,110,c[0],c[1]));
+
+  const legend = [
+    ['1','Pelaminan'],
+    ['2','Koridor / Jalan Utama'],
+    ...(leftStrip.concat(rightStrip)).map((c,i)=>[String(3+i), c[0].charAt(0)+c[0].slice(1).toLowerCase()]),
+    ['','Welcome Board'],['','Photo Booth'],['','Meja Buku Tamu']
+  ];
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+    <rect x="20" y="20" width="${W-40}" height="${H-40}" rx="10" fill="none" stroke="#a8536080" stroke-width="1"/>
+    <text x="${W/2}" y="52" text-anchor="middle" font-family="Georgia,serif" font-size="17" letter-spacing="3" fill="#ffc866">DENAH LAYOUT</text>
+    <path d="M${W/2-90} 62 H${W/2-16} M${W/2+16} 62 H${W/2+90}" stroke="#a8536080"/>
+
+    <!-- pelaminan -->
+    <rect x="${W/2-140}" y="90" width="280" height="120" rx="4" fill="rgba(255,177,55,0.05)" stroke="#ffb137"/>
+    <path d="M${W/2-100} 90 A100 60 0 0 1 ${W/2+100} 90" fill="none" stroke="#ffb13780"/>
+    <text x="${W/2}" y="156" text-anchor="middle" font-family="Georgia,serif" font-size="12" letter-spacing="2" fill="#f5eee7">PELAMINAN</text>
+
+    <!-- koridor -->
+    <rect x="${W/2-38}" y="210" width="76" height="${zoneBottom-210+60}" fill="rgba(255,177,55,0.03)" stroke="#a8536050" stroke-dasharray="2 6"/>
+    <text x="${W/2}" y="${(210+zoneBottom)/2}" text-anchor="middle" font-family="Georgia,serif" font-size="10" letter-spacing="2" fill="#c7b3ab" transform="rotate(-90 ${W/2} ${(210+zoneBottom)/2})">KORIDOR / JALAN UTAMA</text>
+
+    ${tables}
+    ${stripsSvg}
+
+    <!-- bottom entrance row -->
+    <g>
+      <rect x="70" y="${H-120}" width="130" height="50" rx="3" fill="rgba(255,177,55,0.06)" stroke="#a8536080"/>
+      <text x="135" y="${H-91}" text-anchor="middle" font-size="9.5" fill="#f5eee7" font-family="Georgia,serif">WELCOME BOARD</text>
+      <rect x="230" y="${H-120}" width="120" height="50" rx="3" fill="rgba(255,177,55,0.06)" stroke="#a8536080"/>
+      <text x="290" y="${H-91}" text-anchor="middle" font-size="9.5" fill="#f5eee7" font-family="Georgia,serif">PHOTO BOOTH</text>
+      <rect x="${W-350}" y="${H-120}" width="130" height="50" rx="3" fill="rgba(255,177,55,0.06)" stroke="#a8536080"/>
+      <text x="${W-285}" y="${H-91}" text-anchor="middle" font-size="9.5" fill="#f5eee7" font-family="Georgia,serif">MEJA BUKU TAMU</text>
+      <text x="${W/2}" y="${H-52}" text-anchor="middle" font-size="10" letter-spacing="2" fill="#ffc866" font-family="Georgia,serif">MASUK ➜</text>
+    </g>
+  </svg>`;
+  return {svg, legend, notes};
+}
+
 function generateMoodboard(){
   const board = document.getElementById('mbResultBoard');
   const keys = Object.keys(moodboardSelections);
-  const conceptRows = [
-    ['Jumlah Undangan', moodboardConcept.guests],
-    ['Lokasi Entertainment', moodboardConcept.entertain],
-    ['Gubukan', `${moodboardConcept.gubukanCount} unit — ${moodboardConcept.gubukanLoc}`],
-    ['Meja Prasmanan', moodboardConcept.prasmanan],
-    ['Area VIP', moodboardConcept.vip==='Ya' ? `Ya — ${moodboardConcept.vipLoc}` : 'Tidak Ada']
-  ];
-  const conceptHtml = conceptRows.map(([label,val])=>`
-      <div class="mb-concept-row"><span>${label}</span><b>${escapeHtml(String(val))}</b></div>`).join('');
 
-  const itemsHtml = keys.length ? keys.map(catKey=>{
-    const c = categories.find(x=>x.key===catKey);
+  const collageHtml = keys.length ? keys.map(catKey=>{
     const it = moodboardSelections[catKey];
     const media = it.image
       ? `<div class="ph has-img" style="background-image:url('${it.image}')"></div>`
-      : `<div class="ph g1"><svg viewBox="0 0 48 48">${c?c.icon:DEFAULT_ICON}</svg></div>`;
-    return `<div class="mb-result-card">
-        <div class="mb-result-media">${media}</div>
-        <div class="mb-result-label"><span class="mb-result-cat">${c?escapeHtml(c.label):''}</span>${escapeHtml(it.name)}</div>
-      </div>`;
-  }).join('') : `<p style="text-align:center;color:var(--ivory-faint);padding:30px 0;">Belum ada elemen dipilih — kembali ke langkah sebelumnya untuk memilih.</p>`;
+      : `<div class="ph g1"></div>`;
+    return `<div class="mb-collage-item">${media}</div>`;
+  }).join('') : `<p style="color:var(--ivory-faint); font-size:0.85rem;">Belum ada elemen dipilih.</p>`;
+
+  const pickedNames = keys.map(k=> moodboardSelections[k].name);
+  const conceptText = pickedNames.length
+    ? `Konsep romantic royal wedding dengan perpaduan ${pickedNames.slice(0,3).join(', ')}${pickedNames.length>3?', dan elemen lainnya':''}. Ditata untuk ±${moodboardConcept.guests||'-'} undangan dengan koridor utama di tengah venue, menghadirkan suasana elegan, hangat, dan mewah dari pintu masuk hingga pelaminan.`
+    : `Konsep romantic royal wedding untuk ±${moodboardConcept.guests||'-'} undangan, ditata dengan koridor utama di tengah venue untuk suasana elegan dan mewah.`;
+
+  const {svg, legend, notes} = buildFloorPlanSVG(moodboardConcept);
+  const legendHtml = legend.map(([num,label])=>`<div class="mb-legend-item">${num?`<span class="mb-legend-num">${num}</span>`:''}<span>${escapeHtml(label)}</span></div>`).join('');
+  const notesHtml = notes.length ? `<p class="mb-notes">${notes.map(escapeHtml).join(' &nbsp;•&nbsp; ')}</p>` : '';
 
   board.innerHTML = `
     <div class="mb-board" id="mbBoardCapture">
       <div class="mb-board-head">
         <img src="${document.querySelector('.lib-mark').src}" alt="Box Design">
-        <div class="mb-board-eyebrow">Wedding Moodboard</div>
+        <div class="mb-board-eyebrow">Moodboard &amp; Denah Layout Wedding</div>
         <h2>Konsep Dekorasi Anda</h2>
-        <p>Disusun otomatis oleh Box Design berdasarkan pilihan Anda</p>
+        <p>Disusun otomatis oleh Box Design berdasarkan pilihan Anda — Elegant · Timeless · Romantic</p>
       </div>
-      <div class="mb-concept-panel">${conceptHtml}</div>
-      <div class="mb-result-grid">${itemsHtml}</div>
+
+      <div class="mb-board-cols">
+        <div class="mb-col-left">
+          <h5>Moodboard</h5>
+          <div class="mb-collage">${collageHtml}</div>
+          <div class="mb-palette">
+            <span style="background:#821b2b"></span><span style="background:#c02123"></span>
+            <span style="background:#ffb137"></span><span style="background:#f5eee7;border:1px solid #a8536080;"></span>
+          </div>
+          <h5>Konsep</h5>
+          <p class="mb-concept-text">${conceptText}</p>
+        </div>
+        <div class="mb-col-right">
+          <div class="mb-floorplan-wrap">${svg}</div>
+          ${notesHtml}
+          <div class="mb-legend">${legendHtml}</div>
+        </div>
+      </div>
+
       <div class="mb-board-foot">
         <span>BOX DESIGN</span>
         <span>Visualizing Your Dream Moments With Us!</span>
