@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Box Design — Wedding Decoration Design Studio</title>
+<script>(function(){try{if(localStorage.getItem('boxdesign-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -34,7 +35,40 @@
   --shadow-sm: 0 2px 16px rgba(0,0,0,0.4);
   --shadow-md: 0 12px 36px rgba(0,0,0,0.5);
   --shadow-lg: 0 26px 70px rgba(0,0,0,0.65);
+  /* warna tetap untuk elemen di atas foto (tidak berubah di kedua tema) */
+  --on-photo-text: #fdf8ec;
+  --on-photo-text-dim: rgba(253,248,236,0.85);
+  --on-photo-gold: #ffc866;
+  --on-photo-scrim: rgba(10,4,5,0.6);
+  --bg-rgb: 34,13,17;
 }
+
+/* ============ TEMA TERANG — Ivory & Gold ============ */
+[data-theme="light"]{
+  --bg: #faf7f1;
+  --bg-warm: #f1e9d9;
+  --surface: #ffffff;
+  --surface-2: #f6efe0;
+  --line: #ddcfa8;
+  --line-soft: #ece2c8;
+  --gold: #a9822f;
+  --gold-deep: #8a6a24;
+  --gold-bright: #8a6a24;
+  --gold-dim: #e3d3a8;
+  --maroon: #a8241f;
+  --burgundy: #7a1f2a;
+  --ivory: #2a2420;
+  --ivory-dim: #6a5e4e;
+  --ivory-faint: #9c8d76;
+  --success: #4c7048;
+  --danger: #a13a28;
+  --shadow-sm: 0 2px 16px rgba(110,85,30,0.10);
+  --shadow-md: 0 12px 36px rgba(110,85,30,0.14);
+  --shadow-lg: 0 26px 70px rgba(80,60,15,0.20);
+  --bg-rgb: 250,247,241;
+}
+body{transition: background-color .35s ease, color .35s ease;}
+header.site, .modal, .item-card, .service-card, .testi-card, .package-card, .tab-btn, footer.site{transition: background-color .35s ease, border-color .35s ease, box-shadow .35s ease;}
 *{box-sizing:border-box; margin:0; padding:0;}
 html{scroll-behavior:smooth;}
 body{
@@ -77,7 +111,7 @@ h1,h2,h3,h4{font-family:var(--serif); font-weight:500; letter-spacing:0.01em; co
 /* ============ HEADER ============ */
 header.site{
   position:sticky; top:0; z-index:200;
-  background:rgba(10,9,8,0.86);
+  background:rgba(var(--bg-rgb), 0.86);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line-soft);
 }
@@ -117,6 +151,17 @@ nav.main-links a:hover::after{width:100%;}
 .btn-outline-gold:hover{background:rgba(255,177,55,0.13); border-color:var(--gold-bright);}
 .btn-ghost{border:1px solid transparent; color:var(--ivory-dim);}
 .btn-sm{padding:8px 14px; font-size:0.7rem;}
+.theme-toggle{
+  width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+  background:transparent; display:flex; align-items:center; justify-content:center;
+  color:var(--ivory-dim); flex-shrink:0; transition:all .25s ease;
+}
+.theme-toggle:hover{border-color:var(--gold-dim); color:var(--gold-bright);}
+.theme-toggle svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.4;}
+.theme-toggle .icon-moon{display:block;}
+.theme-toggle .icon-sun{display:none;}
+[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+[data-theme="light"] .theme-toggle .icon-sun{display:block;}
 .menu-toggle{display:none; background:none; border:none; color:var(--ivory);}
 @media(max-width:980px){
   nav.main-links{display:none;}
@@ -152,14 +197,14 @@ nav.main-links a:hover::after{width:100%;}
   padding:54px 52px;
   box-shadow:0 30px 80px rgba(0,0,0,0.35);
 }
-.hero-content .eyebrow{margin-bottom:30px; opacity:0; animation:fadeUp 1s ease forwards .15s; text-shadow:0 1px 6px rgba(0,0,0,0.85);}
+.hero-content .eyebrow{margin-bottom:30px; opacity:0; animation:fadeUp 1s ease forwards .15s; text-shadow:0 1px 6px rgba(0,0,0,0.85); color:var(--on-photo-gold);}
 .hero h1{
-  font-size:clamp(2.3rem, 5vw, 3.9rem); line-height:1.22; color:var(--ivory); font-weight:500;
+  font-size:clamp(2.3rem, 5vw, 3.9rem); line-height:1.22; color:var(--on-photo-text); font-weight:500;
   opacity:0; animation:fadeUp 1s ease forwards .6s; text-shadow:0 2px 6px rgba(0,0,0,0.75), 0 4px 30px rgba(0,0,0,0.6);
 }
-.hero h1 em{font-style:italic; color:var(--gold-bright); font-weight:500;}
+.hero h1 em{font-style:italic; color:var(--on-photo-gold); font-weight:500;}
 .hero p.lede{
-  margin:32px auto 0; max-width:500px; color:var(--ivory-dim); font-size:1.05rem; font-weight:300;
+  margin:32px auto 0; max-width:500px; color:var(--on-photo-text-dim); font-size:1.05rem; font-weight:300;
   opacity:0; animation:fadeUp 1s ease forwards .9s; text-shadow:0 1px 4px rgba(0,0,0,0.8), 0 2px 20px rgba(0,0,0,0.6);
 }
 .hero-ctas{display:flex; gap:16px; justify-content:center; margin-top:44px; flex-wrap:wrap;
@@ -167,10 +212,10 @@ nav.main-links a:hover::after{width:100%;}
 @keyframes fadeUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
 @media(max-width:640px){.hero-content{padding:38px 26px;}}
 .scroll-cue{position:absolute; bottom:34px; left:50%; transform:translateX(-50%); z-index:1;
-  font-size:0.65rem; letter-spacing:0.25em; color:var(--ivory-faint); text-transform:uppercase;
+  font-size:0.65rem; letter-spacing:0.25em; color:var(--on-photo-text-dim); text-transform:uppercase;
   display:flex; flex-direction:column; align-items:center; gap:10px;
   opacity:0; animation:fadeUp 1s ease forwards 1.5s;}
-.scroll-cue .line{width:1px; height:34px; background:linear-gradient(rgba(227,192,119,0.6), transparent); animation:pulseLine 2.2s ease-in-out infinite;}
+.scroll-cue .line{width:1px; height:34px; background:linear-gradient(rgba(255,200,102,0.6), transparent); animation:pulseLine 2.2s ease-in-out infinite;}
 @keyframes pulseLine{0%,100%{opacity:0.4;} 50%{opacity:1;}}
 
 /* stats strip */
@@ -360,15 +405,15 @@ body.admin-on .tab-add-btn{display:flex;}
 .item-media{position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--surface-2);}
 .item-badge{position:absolute; left:12px; top:12px; z-index:2; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; padding:5px 10px; font-weight:500;}
 .item-badge.best{background:var(--gold); color:#fffaf0;}
-.item-badge.sig{background:#211a10; color:var(--gold-bright); border:1px solid var(--gold-dim);}
+.item-badge.sig{background:#211a10; color:var(--on-photo-gold); border:1px solid #7a4c26;}
 .item-badge.new{background:var(--success); color:#f5faf4;}
 .item-admin-controls{position:absolute; right:10px; top:10px; z-index:3; display:none; gap:6px;}
 .admin-bar.on ~ .lib-body .item-admin-controls,
 body.admin-on .item-admin-controls{display:flex;}
-.icon-btn{width:30px; height:30px; background:rgba(10,10,10,0.75); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ivory-dim); backdrop-filter:blur(3px);}
-.icon-btn:hover{border-color:var(--gold-dim); color:var(--gold-bright);}
+.icon-btn{width:30px; height:30px; background:rgba(10,10,10,0.75); border:1px solid rgba(255,255,255,0.18); display:flex; align-items:center; justify-content:center; color:var(--on-photo-text-dim); backdrop-filter:blur(3px);}
+.icon-btn:hover{border-color:var(--on-photo-gold); color:var(--on-photo-gold);}
 .icon-btn svg{width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.4;}
-.icon-btn.danger:hover{border-color:var(--danger); color:var(--danger);}
+.icon-btn.danger:hover{border-color:#ff7a63; color:#ff7a63;}
 .item-info{padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px;}
 .item-info h4{font-size:1.15rem;}
 .item-add{font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ivory-dim); border:1px solid var(--line); padding:7px 12px; transition:all .2s ease;}
@@ -490,6 +535,10 @@ body.admin-on .add-tile{display:flex;}
     <div class="nav-actions">
       <button class="btn btn-ghost" id="navHomeBtn" style="display:none" onclick="goHome()">← <span class="label">Beranda</span></button>
       <button class="btn btn-outline-gold" id="navLibBtn" onclick="goLibrary()">✦ <span class="label">Components Library</span></button>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Ganti Tema Terang/Gelap" aria-label="Ganti tema terang atau gelap">
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5 V5 M12 19 V21.5 M4.2 4.2 L6 6 M18 18 L19.8 19.8 M2.5 12 H5 M19 12 H21.5 M4.2 19.8 L6 18 M18 6 L19.8 4.2"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M20 14.5 A8.5 8.5 0 1 1 9.5 4 A6.8 6.8 0 0 0 20 14.5 Z"/></svg>
+      </button>
       <button class="btn btn-gold" onclick="openModal('modalKonsultasi')"><span class="label">Konsultasi</span></button>
       <button class="menu-toggle" onclick="toggleMobileNav()">☰</button>
     </div>
@@ -1229,9 +1278,27 @@ function toggleMobileNav(){
   nav.style.flexDirection='column';
   nav.style.position='absolute';
   nav.style.top='72px'; nav.style.right='20px';
-  nav.style.background='#131211'; nav.style.border='1px solid #2a2620';
+  nav.style.background='var(--surface)'; nav.style.border='1px solid var(--line)';
   nav.style.padding='18px 22px'; nav.style.gap='16px';
 }
+
+/* ============================================================
+   TEMA TERANG / GELAP
+   ============================================================ */
+function applyTheme(mode){
+  if(mode === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+  else { document.documentElement.removeAttribute('data-theme'); }
+  try{ localStorage.setItem('boxdesign-theme', mode); }catch(e){}
+}
+function toggleTheme(){
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  applyTheme(isLight ? 'dark' : 'light');
+}
+(function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem('boxdesign-theme'); }catch(e){}
+  if(saved === 'light') applyTheme('light');
+})();
 
 /* ============================================================
    TABS + GRID RENDER
